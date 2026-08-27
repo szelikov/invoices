@@ -1,0 +1,8 @@
+services:
+  nginx:
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.bip-nginx.rule: Host("${BASE_HOST}")
+      traefik.http.services.bip-nginx.loadbalancer.server.port: "80"
+    ports:
+    - $BASE_PORT:80
