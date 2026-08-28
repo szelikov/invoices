@@ -8,5 +8,8 @@ export default defineNuxtConfig({
     public: {
       apiServerUrl: '/api'
     }
+  },
+  icon: {
+    customFetchPath: '/_nuxt_icon' 
   }
 })

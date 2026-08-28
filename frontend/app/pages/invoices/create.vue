@@ -17,7 +17,7 @@ const state = reactive<Partial<InvoiceFormValues>>({
   vatAmount: undefined,
   currency: 'UAH',
   issueDate: '',
-  dueDate: ''
+  dueDate: '',
 })
 
 const grossAmount = computed(() => {
@@ -30,7 +30,6 @@ const grossAmount = computed(() => {
 const formRef = useTemplateRef('form')
 
 async function onSubmit(event: FormSubmitEvent<InvoiceFormValues>) {
-  console.log(event.data)
   try {
     const invoice = await $fetch<Invoice>('/api/invoices', {
       baseURL: getApiUrl(),
@@ -67,48 +66,53 @@ async function onSubmit(event: FormSubmitEvent<InvoiceFormValues>) {
         <h1 class="text-xl font-bold">Створення інвойсу</h1>
       </template>
 
-      <UForm ref="form" @submit="onSubmit" :schema :state class="space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Номер інвойсу -->
-          <UFormField label="Номер інвойсу" name="number" required>
+      <UForm
+        ref="form"
+        :schema
+        :state
+        class="space-y-6"
+        @submit="onSubmit"
+      >
+        <div class="flex flex-col gap-4">
+          <UFormField orientation="horizontal" label="Номер інвойсу" name="number" required>
             <UInput v-model="state.number" placeholder="INV-001" />
           </UFormField>
 
-          <!-- Валюта -->
-          <UFormField label="Валюта (ISO)" name="currency" required>
+          <UFormField
+            orientation="horizontal"
+            label="Валюта (ISO)"
+            name="currency"
+            required
+          >
             <UInput v-model="state.currency" placeholder="UAH" maxlength="3" />
           </UFormField>
 
-          <!-- Постачальник -->
-          <UFormField label="Назва постачальника" name="supplierName" class="md:col-span-2" required>
+          <UFormField orientation="horizontal" label="Назва постачальника" name="supplierName" class="md:col-span-2" required>
             <UInput v-model="state.supplierName" placeholder="ТОВ 'Приклад'" />
           </UFormField>
 
-          <!-- ІПН -->
-          <UFormField label="ІПН постачальника" name="supplierTaxId" required>
+          <UFormField orientation="horizontal" label="ІПН постачальника" name="supplierTaxId" required>
             <UInput v-model="state.supplierTaxId" placeholder="1234567890" />
           </UFormField>
 
-          <!-- Дати -->
-          <UFormField label="Дата виписки" name="issueDate" required>
+          <UFormField orientation="horizontal" label="Дата виписки" name="issueDate" required>
             <UInput v-model="state.issueDate" type="date" />
           </UFormField>
 
-          <UFormField label="Термін оплати" name="dueDate" required>
+          <UFormField orientation="horizontal" label="Термін оплати" name="dueDate" required>
             <UInput v-model="state.dueDate" type="date" />
           </UFormField>
 
-          <!-- Суми -->
-          <UFormField label="Сума без ПДВ" name="netAmount" required>
+          <UFormField orientation="horizontal" label="Сума без ПДВ" name="netAmount" required>
             <UInput v-model="state.netAmount" type="number" step="0.01" />
           </UFormField>
 
-          <UFormField label="ПДВ" name="vatAmount" required>
+          <UFormField orientation="horizontal" label="ПДВ" name="vatAmount" required>
             <UInput v-model="state.vatAmount" type="number" step="0.01" />
           </UFormField>
 
-          <UFormField label="Загальна сума" name="grossAmount" class="md:col-span-2" required>
-            <UInput v-model="state.grossAmount" type="number" step="0.01" />
+          <UFormField orientation="horizontal" label="Загальна сума" name="grossAmount" class="md:col-span-2" required>
+            <UInput v-model="grossAmount" readonly type="number" step="0.01" />
           </UFormField>
         </div>
 

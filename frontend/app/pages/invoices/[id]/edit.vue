@@ -10,6 +10,13 @@ const state = reactive({
 })
 
 const schema = createInvoiceSchema
+
+const grossAmount = computed(() => {
+  const net = Number(state.netAmount ?? 0)
+  const vat = Number(state.vatAmount ?? 0)
+  return (net + vat).toFixed(2)
+})
+
 </script>
 
 <template>
@@ -66,7 +73,7 @@ const schema = createInvoiceSchema
           <div class="flex justify-between text-base font-bold text-gray-900 dark:text-white pt-1">
             <span>Всього до сплати (Gross)</span>
             <span class="text-primary-600 dark:text-primary-400">
-              {{ formatCurrency(invoice.grossAmount, invoice.currency) }}
+              {{ formatCurrency(grossAmount, invoice.currency) }}
             </span>
           </div>
         </div>
