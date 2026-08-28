@@ -175,3 +175,20 @@ docker compose down
 ```bash
 docker compose logs -f
 ```
+
+
+## Future Improvements / Roadmap
+
+### CI/CD & Production Ready Setup
+*   **Multi-stage Docker builds.** Optimize production Dockerfiles to significantly reduce image sizes.
+*   **Production Compose configuration.** Add a standalone configuration file (e.g., `compose.prod.yml`) optimized for production environments.
+
+### Automated Testing Suite
+*   **Backend unit tests.** Implement PHPUnit or Pest testing for `InvoiceService` and DTO validation logic.
+*   **Frontend component tests.** Integrate Vitest and Vue Test Utils to isolate and test Nuxt UI/feature components.
+*   **End-to-End (E2E) testing.** Set up Playwright or Cypress to cover critical user paths (e.g., creating, editing, and validating invoices).
+
+### Performance & Optimization
+*   **Docker layer caching.** Structure Dockerfiles efficiently to maximize layer caching and speed up local/CI builds.
+*   **Application caching.** Integrate Redis or Symfony HTTP cache to optimize repeated PostgreSQL queries and API responses.
+
